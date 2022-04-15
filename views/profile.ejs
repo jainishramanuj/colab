@@ -1,0 +1,116 @@
+<div class="navbar">
+    <span class="brand">
+        <img class="icon_nav" src="https://cdn-icons-png.flaticon.com/512/1205/1205671.png">
+        <span class="c_light t_nav">BatEver</span>
+    </span>
+    <span class="logout">
+        <a href="/users/logout" class="btn b_submit">Logout</a>
+    </span>
+</div>
+
+
+<div class="row gutters-sm">
+    <div class="col-md-4">
+        <div class="cbg_light c_dark card">
+            <div class="card-body">
+                <div class="d-flex flex-column align-items-center text-center">
+                    <div class="profImg" id="profileImg"></div>
+                    <div class="mt-3">
+                        <h4 class="t_card" id="channelTitle2"></h4>
+                        <button id="channelLink" class="btn b_new c_dark"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="cbg_light c_dark card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="f_normal mb-0">Channel :</h6>
+                    </div>
+                    <div class="col-sm-9 f_normal">
+                        <span id="channelTitle"></span>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="f_normal mb-0">Subscribers : </h6>
+                    </div>
+                    <div class="col-sm-9 f_normal">
+                        <span id="subCount"></span>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="f_normal mb-0">Videos : </h6>
+                    </div>
+                    <div class="col-sm-9 f_normal">
+                        <span id="totalVideo"></span>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="f_normal mb-0">Views : </h6>
+                    </div>
+                    <div class="col-sm-9 f_normal">
+                        <span id="views"></span>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        var API_KEY ="AIzaSyBDs_G_fiN-JenAJmH_sme8NkxK1Lr5JWA"
+
+        // get channel id from dashboard
+        // var channelId = 'UCq-Fj5jknLsUf-MWSy4_brA'
+        var channelId = '<%- (channelId) %>'
+
+        // get data function calling
+        getData(API_KEY, channelId)
+
+        // get data function defination
+        function getData(key, channelId){
+            $.get("https://www.googleapis.com/youtube/v3/channels?key=" + key + "&type=channel&part=statistics%2Csnippet%2CcontentDetails"
+                    + "&id=" + channelId
+
+                ,function(data){
+
+                console.log(data)
+
+                data.items.forEach(element => {
+
+                    var channelTitle = element.snippet.title
+                    $("#channelTitle").append(channelTitle)
+                    $("#channelTitle2").append(channelTitle)
+
+                    var profileImg = `<img src="${element.snippet.thumbnails.high.url}" alt="" class="rounded-circle" width="150">`
+                    console.log(profileImg);
+                    $("#profileImg").append(profileImg)
+
+                    var subCount = element.statistics.subscriberCount
+                    $("#subCount").append(subCount)
+
+                    var totalVideo = element.statistics.videoCount
+                    $("#totalVideo").append(totalVideo)
+
+                    var views = element.statistics.viewCount
+                    $("#views").append(views)
+
+                    var channelLink = `<a href="https://www.youtube.com/channel/${channelId}" target="_blank" class="c_dark" style="text-decoration: none"><strong>Visit Channel</strong></a>`
+                    $("#channelLink").append(channelLink)
+                })
+            })
+        }
+    })
+</script>

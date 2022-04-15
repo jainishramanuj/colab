@@ -1,0 +1,149 @@
+<div class="logout">
+    <a href="/users/logout" class="btn b_submit">Logout</a>
+</div>
+<div class="center container"">
+    <h1><img class="icon" src="https://cdn-icons-png.flaticon.com/512/1205/1205671.png"></h1>
+    <h1 class="c_light t_batever">BatEver</h1>
+    <h6 class="c_light f_mon">The Ultimate Search Engine for Collobration.</h6>
+    <br/>
+    <form id="form">
+        <div class="form-group">
+
+            <!-- Topic selector -->
+            <select class="cbg_light c_dark f_normal selector btn" name="topic" id="topic">
+                <option value="" disabled selected value>Select Topic</option>
+                <option value="/m/04rlf">Music</option>
+                <option value="/m/0bzvm2">Gamming</option>
+                <option value="/m/06ntj">Sports</option>
+                <option value="/m/02jjt">Entertainment</option>
+                <option value="/m/019_rr">Lifestyle</option>
+                <option value="/m/098wr">Social</option>
+                <option value="/m/01k8wb">Knowledge</option>
+                <option value="/m/0kt51">Health</option>
+                <option value="/m/05qt0">Politics</option>
+                <option value="/m/07c1v">Technology</option>
+                <option value="/m/032tl">Fashion</option>
+                <option value="/m/02wbm">Food</option>
+                <option value="/m/027x7n">Fitness</option>
+                <option value="/m/09s1f">Business</option>
+            </select>
+
+            <!-- Country selector -->
+            <select class="c_dark cbg_light f_normal selector btn" name="country" id="country">
+                <option value="" disabled selected value>Select Country</option>
+                <option value="IN">India</option>
+                <option value="BD">Bangladesh</option>
+                <option value="NP">Nepal</option>
+                <option value="LK">Srilanka</option>
+            </select>
+
+            <!-- Language Selector -->
+            <select class="c_dark cbg_light f_normal selector btn" name="language" id="language">
+                <option value="" disabled selected value>Select A Language</option>
+                <option value="en">English</option>
+                <option value="hi">Hindi</option>
+                <option value="gu">Gujarati</option>
+                <option value="mr">Marathi</option>
+                <option value="ur">Urdu</option>
+            </select>
+
+            <!-- Max-resault selector -->
+            <select class="c_dark cbg_light f_normal selector btn" name="maxvalue" id="maxvalue">
+                <option value="" disabled selected value>Select Max-resault</option>
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">All</option>
+            </select>
+            
+
+        </div>
+        <div class="form-group">
+            <input type="text" class="search c_dark f_normal" id="search" placeholder="Write keyword (optional)*">
+            <input type="submit" class="btn b_submit" value="search">
+        </div>
+    </form>
+
+    <div class="row">
+        <div class="col-md-12">
+            <ol>
+                <div id="add-list">
+                    
+                </div>
+            </ol>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    
+    $(document).ready(function(){
+
+        var API_KEY ="AIzaSyATdJuKThIJE59duaOMBVaN9uAML5nirWs"
+        // var API_KEY ="AIzaSyBDs_G_fiN-JenAJmH_sme8NkxK1Lr5JWA"
+        var list = ''
+        var topic = ''
+        var country = ''
+        var language = ''
+        var maxvalue = ''
+        var search = ''
+
+        $("#form").submit(function (event){
+            event.preventDefault()
+
+            search = $("#search").val()
+            topic = $("#topic").val();
+            country = $("#country").val();
+            language = $("#language").val();
+            maxvalue = $("#maxvalue").val();
+
+            // channelSearch function calling
+            channelSearch(API_KEY, search)
+        })
+        
+        // channelSearch function defination
+        function channelSearch(key, search){
+
+            $.get("https://www.googleapis.com/youtube/v3/search?key=" + key + "&type=video&part=snippet" + "&q=" + search 
+                    + "&chart=mostPopular"
+                    + "&order=rating" 
+                    + "&topicId=" + topic 
+                    + "&regionCode=" + country
+                    + "&relevanceLanguage=" + language
+                    + "&maxResults=" + maxvalue 
+
+            ,function(data){
+
+                data.items.forEach(element => {
+                    console.log(data)
+                    console.log(element.snippet.channelTitle)
+                    console.log(topic)
+                    console.log(country)
+                    console.log(language)
+                    console.log(maxvalue)
+
+                    list = `
+                        <!--<iframe width="420" height="315" src="http://www.youtube.com/embed/${element.snippet.channelTitle}" frameborder="0" allowfullscreen></iframe> -->
+
+                        <div class="list f_normal alert d-flex justify-content-between align-items-start">
+                            <strong>
+                            <li>
+                                ${element.snippet.channelTitle}
+                            </li>
+                            </strong>
+                            <a href="/users/dashboard/profile?channelId=${element.snippet.channelId}">
+                                <button type="button" class="c_dark b_new btn">View Profile</button>
+                            </a>
+                            
+                        </div>
+                    `
+                    $("#add-list").append(list)
+
+                });
+            })
+
+        }        
+
+    })
+</script>
