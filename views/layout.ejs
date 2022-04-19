@@ -166,6 +166,7 @@
         margin-bottom: 40px;
     }
     .list{
+        display: flex;
         background-color: #C6B4CE;
         color: #583D72;
         box-shadow: 3px 3px 1px #371a51;
@@ -186,6 +187,28 @@
         margin: 20px 10px;
         color: #583D72;
         font-size: 1.25rem;
+    }
+
+    @media only screen and (max-width: 500px) {
+        .t_batever{
+            font-size: 55px;
+            text-shadow: 2px 2px 0.25px #371a51;
+        }
+        .t_normal{
+            font-size: 50px;
+        }
+        .list{
+            display: block;
+        }
+        .icon_nav{
+            width: 50px;
+        }
+        .t_nav{
+            font-size: 30px;
+        }
+        .b_small{
+            font-size: 10px;
+        }
     }
     /* background text style */
 

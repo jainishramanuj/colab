@@ -1,7 +1,7 @@
 <div class="logout">
-    <a href="/users/logout" class="btn b_submit">Logout</a>
+    <a href="/users/logout" class="btn b_submit b_small">Logout</a>
 </div>
-<div class="center container"">
+<div class="center container">
     <h1><img class="icon" src="https://cdn-icons-png.flaticon.com/512/1205/1205671.png"></h1>
     <h1 class="c_light t_batever">BatEver</h1>
     <h6 class="c_light f_mon">The Ultimate Search Engine for Collobration.</h6>
@@ -13,7 +13,7 @@
             <select class="cbg_light c_dark f_normal selector btn" name="topic" id="topic">
                 <option value="" disabled selected value>Select Topic</option>
                 <option value="/m/04rlf">Music</option>
-                <option value="/m/0bzvm2">Gamming</option>
+                <option value="/m/0bzvm2">Gaming</option>
                 <option value="/m/06ntj">Sports</option>
                 <option value="/m/02jjt">Entertainment</option>
                 <option value="/m/019_rr">Lifestyle</option>
@@ -126,9 +126,9 @@
                     list = `
                         <!--<iframe width="420" height="315" src="http://www.youtube.com/embed/${element.snippet.channelTitle}" frameborder="0" allowfullscreen></iframe> -->
 
-                        <div class="list f_normal alert d-flex justify-content-between align-items-start">
+                        <div class="list f_normal alert justify-content-between align-items-start">
                             <strong>
-                            <li>
+                            <li class="list_name">
                                 ${element.snippet.channelTitle}
                             </li>
                             </strong>
