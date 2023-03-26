@@ -4,7 +4,7 @@ Collabration website using Bootstrap and NodeJs
 
 ## Demo
 
-[Deployed on Heroku (BatEver)](https://batever.herokuapp.com/)
+[Deployed on Railway (BatEver)](https://web-production-4c701.up.railway.app/)
 
 
 
